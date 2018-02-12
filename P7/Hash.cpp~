@@ -1,0 +1,101 @@
+/*
+  CSE109
+  Lizzie Litt
+  esl218
+  Program Description: defines hash functions
+  Program #7
+*/
+#include<iostream>
+#include<vector>
+
+#include"Hasher.h"
+
+using namespace std;
+
+template <typename T>
+Hash<T>::Hash(size_t size)
+{
+    data.resize(size);
+	numBuckets = size;
+	numElements = 0;
+}
+
+template <typename T>
+Hash<T>::~Hash()
+{
+}
+
+template <typename T>
+bool Hash<T>::insert(T toInsert)
+{
+	size_t location =  hashThat(&toInsert, sizeof(T), numBuckets);
+	for(int i=0; i<data[location].size(); i++)
+	{
+		if(data[location][i] == toInsert)
+		{
+			return false;
+		}
+	}
+	data[location].push_back(toInsert);
+	numElements++;
+	return true;
+}
+
+template <typename T>
+bool Hash<T>::find(T toFind)
+{
+	size_t location =  hashThat(&toFind, sizeof(T), numBuckets);
+	for(int i=0; i<data[location].size(); i++)
+	{
+		if(data[location][i] == toFind)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+template <typename T>
+bool Hash<T>::remove(T toRemove)
+{
+	size_t location =  hashThat(&toRemove, sizeof(T), numBuckets);
+	for(int i=0; i<data[location].size(); i++)
+	{
+		if(data[location][i] == toRemove)
+		{
+			data[location].erase(data[location].begin() + i);
+			i--;
+			numElements--;
+			return true;
+		}
+	}
+	return false;
+}
+
+template <typename T>
+size_t Hash<T>::getSize()
+{
+	return numBuckets;
+}
+
+template <typename T>
+size_t Hash<T>::getCount()
+{
+	return numElements;
+}
+
+template <typename T>
+T* Hash<T>::getElement(size_t bucket, size_t element)
+{
+	if(data.size() == 0 || numBuckets < bucket)
+	{
+		return NULL;
+	}
+
+	if(element < data[bucket].size())
+	{
+		return &data[bucket][element];
+	}
+	
+	return NULL;
+}

@@ -1,0 +1,39 @@
+/*
+  CSE109
+  Lizzie Litt
+  esl218
+  Program Description: hash data structure
+  Program #7
+*/
+
+#ifndef HASH_H
+#define HASH_H
+
+#include<vector>
+#include<iostream>
+using namespace std;
+
+template <typename T>
+class Hash_t
+{
+public:
+	Hash_t(size_t size);
+	~Hash_t();
+
+	bool insert(T data);
+	bool find(T data);
+	bool remove(T data);
+
+	size_t getSize();
+	size_t getCount();
+	T* getElement(size_t bucket, size_t element);
+
+private:
+	vector<vector<T> > data; //2d vector
+	size_t numBuckets;
+	size_t numElements;
+};
+
+#include"Hash.cpp"
+
+#endif

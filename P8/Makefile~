@@ -1,0 +1,13 @@
+OPTS = -g -Wall -Werror
+OBJS = Server.o
+
+all: Server
+
+Server: $(OBJS)
+	g++ $(OPTS) -o $@ $^
+
+%.o: %.c $(DEPS)
+	g++ -c -o $@ $< $(OPTS)
+
+clean:
+	rm -f *~*.o Server

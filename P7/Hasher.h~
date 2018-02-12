@@ -1,0 +1,29 @@
+/*
+  CSE109
+  Lizzie Litt
+  esl218
+  Program #7
+*/
+
+#ifndef HASHER_H
+#define HASHER_H
+
+//#include<iostream>
+//using namespace std;
+
+template <typename T>
+class hasher
+{
+public:
+	size_t hashThat(void *data, size_t size, size_t hashSize);
+
+private:
+	T data;
+    size_t size;
+	size_t hashSize;
+	
+};
+
+
+
+#endif
